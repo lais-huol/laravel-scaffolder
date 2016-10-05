@@ -1,0 +1,17 @@
+{
+    "name": "lais/scaffold",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jean Jar Pereira de Araújo",
+            "email": "jeanjpa@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoloader" : {
+        "psr-4" : {
+            "LAIS\\Scaffold\\" : "src/"
+        }
+    }
+}

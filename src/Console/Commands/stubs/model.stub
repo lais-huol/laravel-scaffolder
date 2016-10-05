@@ -1,0 +1,25 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+{{usemodels}}
+
+class {{class}} extends Model
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        {{fields}}
+    ];
+
+    public function getFillables()
+    {
+        return $this->fillable;
+    }
+
+{{relationships}}
+}

@@ -1,0 +1,21 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Create new {{class}}</div>
+                    <div class="panel-body">
+                        <form method="POST" action="{{ route('{{class}}.store') }}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+{{formFields}}
+                            <button type="submit" class="btn btn-default">Submit</button>
+                            <a href="{{ route('clientes.index') }}" class="btn btn-danger pull-right">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

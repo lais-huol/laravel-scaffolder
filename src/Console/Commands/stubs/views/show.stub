@@ -1,0 +1,22 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Showing {{modelName}} <a class="btn btn-xs btn-primary pull-right" href="{{ route('{{class}}.index') }}"><i class="glyphicon glyphicon-arrow-left"></i> Back to list</a></div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>#</th>
+                                <td>{{ $item->id }}</td>
+                            </tr>
+{{tableRows}}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

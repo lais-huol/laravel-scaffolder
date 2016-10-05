@@ -1,0 +1,32 @@
+<?php
+
+namespace {{appNamespace}}Http\Controllers;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\{{model}};
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use DB;
+use Validator;
+
+class {{class}} extends CrudController
+{
+
+    public function __construct()
+    {
+        $this->paginatorLimit = 10;
+        parent::__construct({{model}}::class);
+    }
+
+    public function validateRulesOnCreate(Request $request)
+    {
+{{validateRules}}
+    }
+
+    public function validateRulesOnUpdate(Request $request)
+    {
+{{validateRules}}
+    }
+
+}
