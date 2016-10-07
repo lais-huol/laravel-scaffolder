@@ -26,6 +26,17 @@ class MakeController
         $this->start();
     }
 
+    protected function createCrudController()
+    {
+        $path = './app/Http/Controllers/CrudController.php';
+        if(!$this->files->exists($path))
+        {
+            $stub = $this->files->get(dirname(__DIR__) . '/stubs/crudcontroller.stub');
+            $this->replaceAppNamespace($stub);
+            $this->files->put($path, $stub);
+        }
+    }
+
     protected function start()
     {
         $this->className = $this->scaffolding->getModelName();
@@ -40,6 +51,7 @@ class MakeController
 
         //Execute
         $this->files->put($path, $this->createController());
+        $this->createCrudController();
 
         $this->scaffolding->info('Controller created successfully');
 
