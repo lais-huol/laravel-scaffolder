@@ -57,6 +57,7 @@ class MakeView
                             $this->generateShow($path);
                             break;
                         case 'edit':
+                            $this->generateEdit($path);
                             break;
                     }
                 }
@@ -75,6 +76,7 @@ class MakeView
                         $this->generateShow($path);
                         break;
                     case 'edit':
+                        $this->generateEdit($path);
                         break;
                 }
             }
@@ -140,6 +142,35 @@ STRING;
         // Put file
         $this->files->put($path, $stub);
         $this->scaffolding->info('View create created successfully');
+    }
+
+    protected function generateEdit($path = '')
+    {
+        $schema = $this->scaffolding->getSchema();
+
+        $stub = $this->files->get(dirname(__DIR__) . '/stubs/views/edit.stub');
+
+        //Change the name of the class
+        $stub = str_replace('{{class}}', $this->folder, $stub);
+
+
+        //Complete the {{formFields
+        $fields = $this->getFields($schema);
+        $formFields = [];
+        foreach($fields as $field)
+        {
+            $uc = ucfirst($field);
+            $formFields[] = <<<STRING
+\t\t\t\t\t\t\t<div class="form-group">
+\t\t\t\t\t\t\t\t<label for="{$field}">{$uc}</label>
+\t\t\t\t\t\t\t\t<input type="text" name="{$field}" value="{{ \$item->{$field} }}" class="form-control" id="{$field}" placeholder="{$field}">
+\t\t\t\t\t\t\t</div>
+STRING;
+        }
+        $stub = str_replace('{{formFields}}', implode("\n", $formFields), $stub);
+        // Put file
+        $this->files->put($path, $stub);
+        $this->scaffolding->info('View edit created successfully');
     }
 
     protected function generateShow($path = '')
