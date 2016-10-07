@@ -144,7 +144,15 @@ abstract class CrudController extends Controller
      */
     public function edit($id)
     {
-        //
+        try
+        {
+            $item = $this->getModel()->findOrFail($id);
+            return view($this->route_base_name . '.edit', compact('item'));
+        }
+        catch(ModelNotFoundException $ex)
+        {
+            return redirect(route($this->route_base_name . '.index'))->withErrors($ex->getMessage());
+        }
     }
 
     /**
@@ -156,7 +164,38 @@ abstract class CrudController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try
+        {
+            $item = $this->getModel()->findOrFail($id);
+        }
+        catch(ModelNotFoundException $ex)
+        {
+            return redirect(route($this->route_base_name . '.index'))->withErrors($ex->getMessage());
+        }
+
+        $validator = $this->validateRulesOnUpdate($request);
+        if($validator->fails())
+        {
+            return redirect(route($this->route_base_name . '.edit', $item->id))->withErrors($validator);
+        }
+
+        foreach($item->getFillables() as $column)
+        {
+            $item->$column = $request->get($column);
+        }
+
+        DB::beginTransaction();
+        try
+        {
+            $item->save();
+            DB::commit();
+            return redirect(route($this->route_base_name . '.index'))->with('success', 'record edited with success');
+        }
+        catch(\Exception $ex)
+        {
+            DB::rollBack();
+            return redirect(route($this->route_base_name . '.edit', $item->id))->withErrors($ex->getMessage())->withInput();
+        }
     }
 
     /**
