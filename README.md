@@ -12,7 +12,7 @@ $ php artisan make:scaffold Cliente --schema="nome:string, telefone:string, data
  - [Como usar](#como-usar)
 
 ### O que ele faz
-Ele cria um CRUD já com todos os metodos [--resources](https://laravel.com/docs/5.3/controllers#resource-controllers) implementados
+Ele cria um CRUD já com todos os métodos [--resources](https://laravel.com/docs/5.3/controllers#resource-controllers) implementados
 *inclui*:
  - views: index, show, create, edit
  - CrudController (com os métodos implementados)
@@ -40,7 +40,7 @@ Abra o arquivo app/Console/Kernel.php e adicione a seguinte
 e no array $commands adicione a seguinte linha
 ```php
 protected $commands = [
-    LAIS\Scaffold\Console\Commands\Scaffolding::class,
+    \LAIS\Scaffold\Console\Commands\Scaffolding::class,
 ];
 ```
 
@@ -49,4 +49,4 @@ protected $commands = [
 ```sh
 $ php artisan make:scaffold Cliente --schema="coluna1:tipo1, coluna2:tipo2..."
 ```
-seguindo as mesmas regras das [migrações](https://laravel.com/docs/5.3/migrations#columns) do [Laravel 5.3](https://laravel.com/docs/5.3)
+A passagem de parâmetros segue o mesmo padrão das [migrações](https://laravel.com/docs/5.3/migrations#columns) do [Laravel 5.3](https://laravel.com/docs/5.3)
