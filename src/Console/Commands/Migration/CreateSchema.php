@@ -28,9 +28,14 @@ class CreateSchema
 
     protected function createColumns($fields) {
         $columns = "\t\t\t\$table->increments('id');\n";
-        
+
         foreach ($fields as $field) {
-            $columns .= "\t\t\t\$table->".$field->type."('".$field->name."');\n";
+            $columns .= "\t\t\t\$table->".$field->type."('".$field->name."')";
+            foreach ($field->options as $option => $value)
+            {
+              $columns.= sprintf("->%s(%s)", $options, $value === true ? '' : $value);
+            }
+            $columns .= ";\n";
         }
 
         $columns .= "\t\t\t\$table->timestamps();\n";
@@ -45,12 +50,27 @@ class CreateSchema
         foreach ($schemas as $schema) {
             $parts = explode(":", $schema);
             $field = new \stdClass();
-            $field->name = trim($parts[0]);
-            $field->type = trim($parts[1]);
+            $field->name = array_shift($parts);
+            $field->type = array_shift($parts);
+            $field->options = getOptions($parts);
             $fields[] = $field;
         }
 
         return $fields;
+    }
+
+    protected function getOptions($options)
+    {
+      if (empty($options)) return [];
+        foreach ($options as $option) {
+            if (str_contains($option, '(')) {
+                preg_match('/([a-z]+)\(([^\)]+)\)/i', $option, $matches);
+                $results[$matches[1]] = $matches[2];
+            } else {
+                $results[$option] = true;
+            }
+        }
+        return $results;
     }
 
 }
