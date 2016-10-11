@@ -52,7 +52,7 @@ class CreateSchema
             $field = new \stdClass();
             $field->name = array_shift($parts);
             $field->type = array_shift($parts);
-            $field->options = getOptions($parts);
+            $field->options = $this->getOptions($parts);
             $fields[] = $field;
         }
 
