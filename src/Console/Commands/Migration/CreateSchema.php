@@ -44,7 +44,7 @@ class CreateSchema
     }
 
     protected function getFields($schema) {
-        $schemas = explode(",", $schema);
+        $schemas = preg_split('/,\s?(?![^()]*\))/', $schema);
         $fields = array();
 
         foreach ($schemas as $schema) {
