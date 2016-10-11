@@ -233,13 +233,11 @@ STRING;
 
     protected function getFields($schema)
     {
-        $schemas = explode(",", $schema);
         $fields = [];
-
-        foreach($schemas as $schema)
+        $schemas = (new CreateSchema)->getFields($schema);
+        foreach ($schemas as $sch)
         {
-            $parts = explode(":", $schema);
-            $fields[] = trim($parts[0]);
+          $fields[] = $sch->name;
         }
 
         return $fields;
