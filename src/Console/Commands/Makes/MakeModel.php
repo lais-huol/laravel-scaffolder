@@ -5,6 +5,8 @@ namespace LAIS\Scaffold\Console\Commands\Makes;
 
 use LAIS\Scaffold\Console\Commands\Scaffolding;
 use Illuminate\Filesystem\Filesystem;
+use LAIS\Scaffold\Console\Commands\Migration\CreateSchema;
+
 
 class MakeModel
 {
