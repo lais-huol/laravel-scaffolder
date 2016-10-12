@@ -4,6 +4,7 @@ namespace LAIS\Scaffold\Console\Commands\Makes;
 
 use LAIS\Scaffold\Console\Commands\Scaffolding;
 use Illuminate\Filesystem\Filesystem;
+use LAIS\Scaffold\Console\Commands\Migration\CreateSchema;
 
 class MakeView
 {
@@ -233,13 +234,11 @@ STRING;
 
     protected function getFields($schema)
     {
-        $schemas = explode(",", $schema);
         $fields = [];
-
-        foreach($schemas as $schema)
+        $schemas = (new CreateSchema)->getFields($schema);
+        foreach ($schemas as $sch)
         {
-            $parts = explode(":", $schema);
-            $fields[] = trim($parts[0]);
+          $fields[] = $sch->name;
         }
 
         return $fields;

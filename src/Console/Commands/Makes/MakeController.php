@@ -10,6 +10,7 @@ namespace LAIS\Scaffold\Console\Commands\Makes;
 
 use LAIS\Scaffold\Console\Commands\Scaffolding;
 use Illuminate\Filesystem\Filesystem;
+use LAIS\Scaffold\Console\Commands\Migration\CreateSchema;
 
 class MakeController
 {
@@ -99,16 +100,15 @@ class MakeController
         return $this;
     }
 
-    protected function getFields($schema)
-    {
-        $fields = [];
-        $schemas = explode(',', $schema);
-        foreach($schemas as $schema)
-        {
-            $fields[] = "'" . trim(explode(':', $schema)[0]) . "'";
-        }
+    protected function getFields($schema){
+            $fields = [];
+            $schemas = (new CreateSchema)->getFields($schema);
+            foreach ($schemas as $sch)
+            {
+              $fields[] = $sch->name;
+            }
 
-        return $fields;
+            return $fields;
     }
 
     protected function replaceValidateRulesCreate(&$stub)

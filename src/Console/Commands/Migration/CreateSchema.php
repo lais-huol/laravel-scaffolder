@@ -27,37 +27,46 @@ class CreateSchema
     }
 
     protected function createColumns($fields) {
-        $columns = "\t\t\t\$table->increments('id');\n";
-
-        foreach ($fields as $field) {
-            $columns .= "\t\t\t\$table->".$field->type."('".$field->name."')";
-            foreach ($field->options as $option => $value)
-            {
-              $columns.= sprintf("->%s(%s)", $option, $value === true ? '' : $value);
+            $columns = "\t\t\t\$table->increments('id');\n";
+            foreach ($fields as $field) {
+                $columns .= sprintf("\t\t\t\$table->%s('%s')", $field->type, $field->name);
+                if (property_exists($field, "arguments"))
+                {
+                  $columns = substr($columns, 0, -1) . ', ';
+                  $columns .= implode(', ', $field->arguments) . ')';
+                }
+                foreach ($field->options as $option => $value)
+                {
+                  $columns.= sprintf("->%s(%s)", $option, $value === true ? '' : $value);
+                }
+                $columns .= ";\n";
             }
-            $columns .= ";\n";
-        }
 
-        $columns .= "\t\t\t\$table->timestamps();\n";
+            $columns .= "\t\t\t\$table->timestamps();\n";
 
-        return $columns;
+            return $columns;
     }
 
-    protected function getFields($schema) {
-        $schemas = explode(",", $schema);
-        $fields = array();
+    public function getFields($schema) {
+    $schemas = preg_split('/,\s?(?![^()]*\))/', $schema);
+    $fields = array();
 
-        foreach ($schemas as $schema) {
-            $parts = explode(":", $schema);
-            $field = new \stdClass();
-            $field->name = array_shift($parts);
-            $field->type = array_shift($parts);
-            $field->options = $this->getOptions($parts);
-            $fields[] = $field;
+    foreach ($schemas as $schema) {
+        $parts = explode(":", $schema);
+        $field = new \stdClass();
+        $field->name = array_shift($parts);
+        $field->type = array_shift($parts);
+        if (preg_match('/(.+?)\(([^)]+)\)/', $field->type, $matches))
+        {
+          $field->type = $matches[1];
+          $field->arguments = explode(',', $matches[2]);
         }
-
-        return $fields;
+        $field->options = $this->getOptions($parts);
+        $fields[] = $field;
     }
+
+    return $fields;
+  }
 
     protected function getOptions($options)
     {

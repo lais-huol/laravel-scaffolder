@@ -5,6 +5,8 @@ namespace LAIS\Scaffold\Console\Commands\Makes;
 
 use LAIS\Scaffold\Console\Commands\Scaffolding;
 use Illuminate\Filesystem\Filesystem;
+use LAIS\Scaffold\Console\Commands\Migration\CreateSchema;
+
 
 class MakeModel
 {
@@ -103,16 +105,15 @@ class MakeModel
     }
 
     protected function getFields($schema)
-    {
-        $fields = [];
-        $schemas = explode(',', $schema);
-        foreach($schemas as $schema)
         {
-            $fields[] = "'" . trim(explode(':', $schema)[0]) . "'";
+            $fields = (new CreateSchema)->getFields($schema);
+            $names = [];
+            foreach ($fields as $field)
+            {
+              $names[] = '"' . $field->name . '"';
+            }
+            return implode(', ', $names);
         }
-
-        return implode(',', $fields);
-    }
 
 
     /**
