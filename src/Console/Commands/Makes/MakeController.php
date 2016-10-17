@@ -105,7 +105,7 @@ class MakeController
             $schemas = (new CreateSchema)->getFields($schema);
             foreach ($schemas as $sch)
             {
-              $fields[] = $sch->name;
+              $fields[] = "'" . $sch->name . "'";
             }
 
             return $fields;

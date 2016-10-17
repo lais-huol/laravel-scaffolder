@@ -42,14 +42,13 @@ class MakeModel
             $continue = 1;
             while($continue)
             {
-                $relationship = $this->scaffolding->ask('
-                Which one?
-                0) To none
-                1) One to One
-                2) One to Many
-                3) Many to Many
-                4) Belongs To
-                ');
+                $relationship = $this->scaffolding->ask('Which one?
+0) To none
+1) One to One
+2) One to Many
+3) Many to Many
+4) Belongs To
+');
 
                 if($relationship != 0)
                 {
@@ -105,15 +104,15 @@ class MakeModel
     }
 
     protected function getFields($schema)
+    {
+        $fields = (new CreateSchema)->getFields($schema);
+        $names = [];
+        foreach ($fields as $field)
         {
-            $fields = (new CreateSchema)->getFields($schema);
-            $names = [];
-            foreach ($fields as $field)
-            {
-              $names[] = '"' . $field->name . '"';
-            }
-            return implode(', ', $names);
+            $names[] = "'" . $field->name . "'";
         }
+        return implode(', ', $names);
+    }
 
 
     /**
@@ -187,7 +186,7 @@ class MakeModel
      */
     protected function relationHasOne($model)
     {
-        $this->useModels .= "use " . $this->scaffolding->getAppNamespace() . $model . ";\n";
+        $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
         return "\tpublic function " . strtolower($model) . "()" . "{\n" . "\t\treturn \$this->hasOne(" . $model . "::class);\n" . "\t}\n";
     }
 
@@ -199,7 +198,7 @@ class MakeModel
      */
     protected function relationHasMany($model)
     {
-        $this->useModels .= "use " . $this->scaffolding->getAppNamespace() . $model . ";\n";
+        $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
         return "\tpublic function " . str_plural(strtolower($model)) . "()" . "{\n" . "\t\treturn \$this->hasMany(" . $model . "::class);\n" . "\t}\n";
     }
 
@@ -211,7 +210,7 @@ class MakeModel
      */
     protected function relationBelongsToMany($model)
     {
-        $this->useModels .= "use " . $this->scaffolding->getAppNamespace() . $model . ";\n";
+        $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
         return "\tpublic function " . str_plural(strtolower($model)) . "()" . "{\n" . "\t\treturn \$this->belongsToMany(" . $model . "::class);\n" . "\t}\n";
     }
 
@@ -223,7 +222,7 @@ class MakeModel
      */
     protected function relationBelongsTo($model)
     {
-        $this->useModels .= "use " . $this->scaffolding->getAppNamespace() . $model . ";\n";
+        $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
         return "\tpublic function " . strtolower($model) . "()" . "{\n" . "\t\treturn \$this->belongsTo(" . $model . "::class);\n" . "\t}\n";
     }
 }
