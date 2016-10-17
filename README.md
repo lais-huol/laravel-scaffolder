@@ -2,14 +2,14 @@
 Este pacote auxilia a criar CRUD's
 
 ```sh
-$ php artisan make:scaffold Cliente --schema="nome:string, telefone:string, data_nascimento:date"
-$ php artisan make:scaffold Instituicao --schema="nome:string:default('LAIS'), cnpj:string:nullable, quantidade_funcionarios:integer"
+$ php artisan make:scaffold Cliente --schema="nome:string, telefone:string, data_nascimento:date" --plural="Clientes" --singular="Cliente"
+$ php artisan make:scaffold Instituicao --schema="nome:string:default('LAIS'), cnpj:string:nullable, quantidade_funcionarios:integer" -p Clientes -s Cliente
 ```
 
 ### Sumário
  - [O que ele faz](#o-que-ele-faz)
  - [Requerimentos](#requerimentos)
- - [Instalação](#instalacao)
+ - [Instalação](#instalação)
  - [Como usar](#como-usar)
 
 ### O que ele faz
@@ -48,8 +48,8 @@ protected $commands = [
 ### Como usar
 **Comando artisan**
 ```sh
-$ php artisan make:scaffold Cliente --schema="coluna1:tipo1, coluna2:tipo2..."
-$ php artisan make:scaffold Empresa --schema="coluna1:tipo1:modificador1, coluna2:tipo2..."
+$ php artisan make:scaffold Cliente --schema="coluna1:tipo1, coluna2:tipo2..." --plural="Clientes" --singular="Cliente"
+$ php artisan make:scaffold Empresa --schema="coluna1:tipo1:modificador1, coluna2:tipo2..." -p Clientes -s Cliente
 ```
 
 
