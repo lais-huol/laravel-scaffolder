@@ -108,7 +108,7 @@ abstract class CrudController extends Controller
             $this->getModel()->save();
             DB::commit();
 
-            return redirect(route($this->route_base_name . '.index'))->with('success', 'record created with success');
+            return redirect(route($this->route_base_name . '.index'))->with('success', 'registro criado com sucesso');
         }
         catch(\Exception $ex)
         {
@@ -189,7 +189,7 @@ abstract class CrudController extends Controller
         {
             $item->save();
             DB::commit();
-            return redirect(route($this->route_base_name . '.index'))->with('success', 'record edited with success');
+            return redirect(route($this->route_base_name . '.index'))->with('success', 'registro editado com sucesso');
         }
         catch(\Exception $ex)
         {
@@ -210,7 +210,7 @@ abstract class CrudController extends Controller
         {
             $item = $this->getModel()->findOrFail($id);
             $item->delete();
-            return redirect(route($this->route_base_name . '.index'))->with('success', 'record deleted with success');
+            return redirect(route($this->route_base_name . '.index'))->with('success', 'registro deletado com sucesso');
         }
         catch(\Exception $ex)
         {

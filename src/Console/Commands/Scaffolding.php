@@ -10,6 +10,7 @@ use LAIS\Scaffold\Console\Commands\Makes\MakeView;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Console\Exception\RuntimeException;
 
 class Scaffolding extends Command
 {
@@ -18,14 +19,14 @@ class Scaffolding extends Command
      *
      * @var string
      */
-    protected $signature = 'make:scaffold {model} {--schema=}';
+    protected $signature = 'make:scaffold {model} {--schema=} {--p|plural=} {--s|singular=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Scaffold your MVC';
+    protected $description = 'Cria um CRUD completo';
 
     /**
      * The name of the model.
@@ -55,6 +56,17 @@ class Scaffolding extends Command
      */
     protected $files;
 
+
+    /**
+     * @string
+     */
+    public $singular;
+
+    /**
+     * @string
+     */
+    public $plural;
+
     /**
      * Create a new command instance.
      *
@@ -74,11 +86,18 @@ class Scaffolding extends Command
     public function handle()
     {
         $this->modelName = $this->argument('model');
-        $this->schema    = $this->option('schema');
+        $this->schema = $this->option('schema');
+        $this->plural = $this->option('plural');
+        $this->singular = $this->option('singular');
+
+        if(is_null($this->singular) or is_null($this->plural) or is_null($this->schema))
+        {
+            throw new RuntimeException('Todos os argumentos são obrigatórios --schema --plural --singular');
+        }
 
         // Start Scaffold
-        $this->info('Configuring ' . $this->modelName . '...');
-        $this->info('Configuring ' . $this->schema . '...');
+        $this->info('Configurando ' . $this->modelName . '...');
+        $this->info('Configurando ' . $this->schema . '...');
         $this->makeMigration();
         $this->makeModel();
         $this->makeController();

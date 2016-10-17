@@ -36,7 +36,7 @@ class MakeView
 
     protected function generateView()
     {
-        $this->scaffolding->info('Creating views...');
+        $this->scaffolding->info('Criando views...');
         foreach($this->views as $view)
         {
             // Get path
@@ -44,7 +44,7 @@ class MakeView
             //check if path exists
             if($this->files->exists($path))
             {
-                if($this->scaffolding->confirm($path . ' already exists! Do you wish to overwrite? [yes|no]'))
+                if($this->scaffolding->confirm($path . ' já existe! Deseja sobrescrever? [yes|no]'))
                 {
                     switch($view)
                     {
@@ -98,6 +98,8 @@ class MakeView
         //Change the single name
         $single = strtolower($this->scaffolding->getModelName());
         $stub = str_replace('{{single}}', $single, $stub);
+        $stub = str_replace('{{plural}}', $this->scaffolding->plural, $stub);
+        $stub = str_replace('{{singular}}', $this->scaffolding->singular, $stub);
 
         //Complete the {{tableheader}} and the {{content_fields}}
         $fields = $this->getFields($schema);
@@ -113,7 +115,7 @@ class MakeView
 
         // Put file
         $this->files->put($path, $stub);
-        $this->scaffolding->info('View index created successfully');
+        $this->scaffolding->info('View index criada com sucesso');
     }
 
     protected function generateCreate($path = '')
@@ -140,9 +142,11 @@ class MakeView
 STRING;
         }
         $stub = str_replace('{{formFields}}', implode("\n", $formFields), $stub);
+        $stub = str_replace('{{plural}}', $this->scaffolding->plural, $stub);
+        $stub = str_replace('{{singular}}', $this->scaffolding->singular, $stub);
         // Put file
         $this->files->put($path, $stub);
-        $this->scaffolding->info('View create created successfully');
+        $this->scaffolding->info('View create criada com sucesso');
     }
 
     protected function generateEdit($path = '')
@@ -153,6 +157,7 @@ STRING;
 
         //Change the name of the class
         $stub = str_replace('{{class}}', $this->folder, $stub);
+        $stub = str_replace('{{singular}}', $this->scaffolding->singular, $stub);
 
 
         //Complete the {{formFields
@@ -171,7 +176,7 @@ STRING;
         $stub = str_replace('{{formFields}}', implode("\n", $formFields), $stub);
         // Put file
         $this->files->put($path, $stub);
-        $this->scaffolding->info('View edit created successfully');
+        $this->scaffolding->info('View edit criada com sucesso');
     }
 
     protected function generateShow($path = '')
@@ -183,6 +188,7 @@ STRING;
         //Change the name of the class
         $stub = str_replace('{{class}}', $this->folder, $stub);
         $stub = str_replace('{{modelName}}', $this->scaffolding->getModelName(), $stub);
+        $stub = str_replace('{{singular}}', $this->scaffolding->singular, $stub);
 
 
         //Complete the {{formFields
@@ -201,7 +207,7 @@ STRING;
         $stub = str_replace('{{tableRows}}', implode("\n", $formFields), $stub);
         // Put file
         $this->files->put($path, $stub);
-        $this->scaffolding->info('View show created successfully');
+        $this->scaffolding->info('View show criada com sucesso');
     }
 
     /**

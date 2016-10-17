@@ -33,33 +33,33 @@ class MakeModel
         //Check if exists a file with the same name
         if($this->files->exists($path))
         {
-            return $this->scaffolding->error('The model ' . $this->className . '.php already exists');
+            return $this->scaffolding->error('O model ' . $this->className . '.php já existe');
         }
 
         $relationships = [];
-        if($this->scaffolding->confirm('This model has any relationship?'))
+        if($this->scaffolding->confirm('Este modelo possui alguma relação?'))
         {
             $continue = 1;
             while($continue)
             {
                 $relationship = $this->scaffolding->ask('Which one?
-0) To none
-1) One to One
-2) One to Many
-3) Many to Many
-4) Belongs To
+0) Cancelar
+1) Um para um (hasOne)
+2) Um para muitos (hasMany)
+3) Muitos para muitos (manyToMany)
+4) Partence a (belongsTo)
 ');
 
                 if($relationship != 0)
                 {
-                    $model = $this->scaffolding->ask('Enter the name of the model:');
+                    $model = $this->scaffolding->ask('Digite o nome do Model:');
                     $relation = new \stdClass();
                     $relation->relationship = $relationship;
                     $relation->model = $model;
                     $relationships[] = $relation;
                 }
 
-                $continue = $this->scaffolding->confirm('Another one?');
+                $continue = $this->scaffolding->confirm('Mais algum?');
             }
 
         }
@@ -67,7 +67,7 @@ class MakeModel
         //Execute
         $this->files->put($path, $this->createModel($relationships));
 
-        $this->scaffolding->info('Model created successfully');
+        $this->scaffolding->info('Model criado com sucesso');
 
     }
 

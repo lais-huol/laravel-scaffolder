@@ -5,13 +5,13 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create new {{class}}</div>
+                    <div class="panel-heading">Criar novo {{singular}}</div>
                     <div class="panel-body">
                         <form method="POST" action="{{ route('{{class}}.store') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 {{formFields}}
-                            <button type="submit" class="btn btn-default">Submit</button>
-                            <a href="{{ route('{{class}}.index') }}" class="btn btn-danger pull-right">Cancel</a>
+                            <button type="submit" class="btn btn-default">Criar</button>
+                            <a href="{{ route('{{class}}.index') }}" class="btn btn-danger pull-right">Cancelar</a>
                         </form>
                     </div>
                 </div>

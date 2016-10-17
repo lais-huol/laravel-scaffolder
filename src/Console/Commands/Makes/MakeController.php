@@ -47,14 +47,14 @@ class MakeController
         //Check if exists a file with the same name
         if($this->files->exists($path))
         {
-            return $this->scaffolding->error('The controller file ' . $this->className . ' already exists');
+            return $this->scaffolding->error('O arquivo ' . $this->className . ' já existe');
         }
 
         //Execute
         $this->files->put($path, $this->createController());
         $this->createCrudController();
 
-        $this->scaffolding->info('Controller created successfully');
+        $this->scaffolding->info('Controller criado com sucesso');
 
     }
 

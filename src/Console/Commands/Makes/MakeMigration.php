@@ -27,19 +27,19 @@ class MakeMigration
     {
         //The name of the migration file
         $date = date('Y_m_d_His');
-        $filename = $date . '_create_' . str_plural(strtolower($this->scaffolding->getModelName())) . '_table';
+        $filename = $date . '_create_' . mb_strtolower($this->scaffolding->plural) . '_table';
 
         $path = './database/migrations/' . $filename . '.php';
 
         //Check if exists a file with the same name
         if($this->files->exists($path))
         {
-            return $this->scaffolding->error('The migration file ' . $filename . ' already exists');
+            return $this->scaffolding->error('O arquivo de migração ' . $filename . ' já existe');
         }
 
         //Execute
         $this->files->put($path, $this->createMigration());
-        $this->scaffolding->info('Migration created successfully');
+        $this->scaffolding->info('Migração criada com sucesso');
     }
 
     protected function createMigration()

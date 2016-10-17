@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Index <a class="btn btn-xs btn-primary pull-right" href="{{ route('{{class}}.create') }}"><i class="glyphicon glyphicon-plus"></i> New record</a></div>
+                <div class="panel-heading">{{plural}} <a class="btn btn-xs btn-primary pull-right" href="{{ route('{{class}}.create') }}"><i class="glyphicon glyphicon-plus"></i> adicionar {{singular}}</a></div>
                 <div class="panel-body">
                     @if($list->count())
                         <table class="table table-condensed table-striped">
@@ -23,12 +23,12 @@
                                         <td>{{ $item->id }}</td>
 {{content_fields}}
                                         <td class="text-right">
-                                            <a class="btn btn-xs btn-primary" href="{{ route('{{class}}.show', $item->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
-                                            <a class="btn btn-xs btn-warning" href="{{ route('{{class}}.edit', $item->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                                            <form action="{{ route('{{class}}.destroy', $item->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                                            <a class="btn btn-xs btn-primary" href="{{ route('{{class}}.show', $item->id) }}"><i class="glyphicon glyphicon-eye-open"></i> Ver</a>
+                                            <a class="btn btn-xs btn-warning" href="{{ route('{{class}}.edit', $item->id) }}"><i class="glyphicon glyphicon-edit"></i> Editar</a>
+                                            <form action="{{ route('{{class}}.destroy', $item->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Deletar?')) { return true } else {return false };">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                                                <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Deletar</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -36,7 +36,7 @@
                             </tbody>
                         </table>
                     @else
-                        <h3 class="text-center alert alert-info">Empty!</h3>
+                        <h3 class="text-center alert alert-info">Não há registros</h3>
                     @endif
                 </div>
             </div>

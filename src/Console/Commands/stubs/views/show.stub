@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Showing {{modelName}} <a class="btn btn-xs btn-primary pull-right" href="{{ route('{{class}}.index') }}"><i class="glyphicon glyphicon-arrow-left"></i> Back to list</a></div>
+                    <div class="panel-heading">Mostrando {{singular}} <a class="btn btn-xs btn-primary pull-right" href="{{ route('{{class}}.index') }}"><i class="glyphicon glyphicon-arrow-left"></i> Voltar</a></div>
                     <div class="panel-body">
                         <table class="table table-bordered table-striped">
                             <tr>

@@ -23,7 +23,7 @@ class MakeRoute
 
         //Execute
         file_put_contents(base_path('routes/web.php'), $this->createRoute(), FILE_APPEND);
-        $this->scaffolding->info('Route created successfully');
+        $this->scaffolding->info('Rota criada com sucesso');
     }
 
     protected function createRoute()
