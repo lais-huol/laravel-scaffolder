@@ -58,7 +58,7 @@ class MakeMigration
      */
     protected function replaceClassName(&$stub)
     {
-        $className = ucwords(camel_case('Create' . str_plural($this->scaffolding->getModelName()) . 'Table'));
+        $className = ucwords(camel_case('Create' . $this->scaffolding->plural . 'Table'));
         $stub = str_replace('{{class}}', $className, $stub);
 
         return $this;
@@ -72,7 +72,7 @@ class MakeMigration
      */
     protected function replaceTableName(&$stub)
     {
-        $this->tableName = strtolower(str_plural($this->scaffolding->getModelName()));
+        $this->tableName = mb_strtolower($this->scaffolding->plural);
         $stub = str_replace('{{table}}', $this->tableName, $stub);
         return $this;
     }
@@ -87,7 +87,7 @@ class MakeMigration
     {
         if($schema = $this->scaffolding->getSchema())
         {
-            $tableName = strtolower(str_plural($this->scaffolding->getModelName()));
+            $tableName = mb_strtolower($this->scaffolding->plural);
             $schema = (new CreateSchema)->parse($tableName, $schema);
             $stub = str_replace(['{{schema_up}}', '{{schema_down}}'], $schema, $stub);
         }
