@@ -3,7 +3,7 @@ Este pacote auxilia a criar CRUD's
 
 ```sh
 $ php artisan make:scaffold Cliente --schema="nome:string, telefone:string, data_nascimento:date" --plural="Clientes" --singular="Cliente"
-$ php artisan make:scaffold Instituicao --schema="nome:string:default('LAIS'), cnpj:string:nullable, quantidade_funcionarios:integer" -p Clientes -s Cliente
+$ php artisan make:scaffold Instituicao --schema="nome:string('200'):default('LAIS'), cnpj:string:nullable, quantidade_funcionarios:integer" -p Clientes -s Cliente
 ```
 
 ### Sumário
