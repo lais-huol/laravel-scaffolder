@@ -35,6 +35,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="text-center">
+                            {{ $list->appends(Request::all())->links() }}
+                        </div>
                     @else
                         <h3 class="text-center alert alert-info">Não há registros</h3>
                     @endif
