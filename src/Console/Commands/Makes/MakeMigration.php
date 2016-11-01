@@ -87,8 +87,8 @@ class MakeMigration
     {
         if($schema = $this->scaffolding->getSchema())
         {
-            $tableName = mb_strtolower($this->scaffolding->plural);
-            $schema = (new CreateSchema)->parse($tableName, $schema);
+            $this->tableName = str_plural(snake_case($this->scaffolding->getModelName()));
+            $schema = (new CreateSchema)->parse($this->tableName, $schema);
             $stub = str_replace(['{{schema_up}}', '{{schema_down}}'], $schema, $stub);
         }
 
