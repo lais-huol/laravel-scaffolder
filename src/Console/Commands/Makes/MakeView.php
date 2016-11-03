@@ -28,7 +28,7 @@ class MakeView
 
     private function start()
     {
-        $this->folder = str_plural(strtolower($this->scaffolding->getModelName()));
+        $this->folder = str_plural(snake_case($this->scaffolding->getModelName()));
         $this->createDirectories();
         $this->createAppView();
         $this->generateView();

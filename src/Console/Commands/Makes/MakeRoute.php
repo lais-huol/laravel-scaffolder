@@ -36,7 +36,7 @@ class MakeRoute
 
     protected function replaceRouteName(&$stub)
     {
-        $routeName = str_plural(mb_strtolower($this->scaffolding->getModelName()));
+        $routeName = str_plural(snake_case($this->scaffolding->getModelName()));
         $controllerName = $this->scaffolding->getModelName();
         $stub = str_replace('{{routeName}}', $routeName, $stub);
         $stub = str_replace('{{controllerName}}', $controllerName, $stub);

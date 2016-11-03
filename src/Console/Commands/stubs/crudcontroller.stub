@@ -16,7 +16,7 @@ abstract class CrudController extends Controller
     protected $model = null;
     protected $templatePrefix;
     protected $paginatorLimit = 10;
-    private $route_base_name;
+    protected $route_base_name;
 
     /**
      * CrudController constructor.
@@ -34,10 +34,10 @@ abstract class CrudController extends Controller
         else
         {
             $pieces = explode('\\', get_class($this->model));
-            $this->templatePrefix = str_plural(strtolower(end($pieces)));
+            $this->templatePrefix = str_plural(snake_case(end($pieces)));
         }
 
-        $this->route_base_name = str_plural(mb_strtolower(class_basename(get_class($this->getModel()))));
+        $this->route_base_name = str_plural(snake_case(class_basename(get_class($this->getModel()))));
     }
 
 

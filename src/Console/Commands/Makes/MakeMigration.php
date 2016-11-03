@@ -27,7 +27,7 @@ class MakeMigration
     {
         //The name of the migration file
         $date = date('Y_m_d_His');
-        $filename = $date . '_create_' . mb_strtolower($this->scaffolding->plural) . '_table';
+        $filename = $date . '_create_' . snake_case($this->scaffolding->plural) . '_table';
 
         $path = './database/migrations/' . $filename . '.php';
 
