@@ -128,7 +128,7 @@ abstract class CrudController extends Controller
         try
         {
             $item = $this->getModel()->findOrFail($id);
-            return view($this->route_base_name . '.show', compact('item'));
+            return view($this->templatePrefix . '.show', compact('item'));
         }
         catch(ModelNotFoundException $ex)
         {
@@ -147,7 +147,7 @@ abstract class CrudController extends Controller
         try
         {
             $item = $this->getModel()->findOrFail($id);
-            return view($this->route_base_name . '.edit', compact('item'));
+            return view($this->templatePrefix . '.edit', compact('item'));
         }
         catch(ModelNotFoundException $ex)
         {
