@@ -45,6 +45,12 @@ protected $commands = [
 ];
 ```
 
+**Registrando o provider no Laravel**
+Abra o arquivo config/app.php e adicione a seguinte linha no array da opção `providers`:
+```php
+\LAIS\Scaffold\Providers\LaisServiceProvider::class,
+```
+
 ### Como usar
 **Comando artisan**
 ```sh
