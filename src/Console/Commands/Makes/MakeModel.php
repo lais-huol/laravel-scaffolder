@@ -75,7 +75,7 @@ class MakeModel
     {
         $stub = $this->files->get(dirname(__DIR__) . '/stubs/model.stub');
 
-        $this->replaceClassName($stub)->replaceFields($stub);
+        $this->replaceClassName($stub)->replaceTableName($stub)->replaceFields($stub);
 
         if(!empty($relationships))
         {
@@ -100,6 +100,18 @@ class MakeModel
     {
         $stub = str_replace('{{class}}', $this->className, $stub);
 
+        return $this;
+    }
+
+    /**
+     * Replace the table name in the stub.
+     *
+     * @param string $stub
+     * @return $this
+     */
+    protected function replaceTableName(&$stub)
+    {
+        $stub = str_replace('{{tableName}}', str_plural(snake_case($this->className)), $stub);
         return $this;
     }
 
@@ -187,7 +199,7 @@ class MakeModel
     protected function relationHasOne($model)
     {
         $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
-        return "\tpublic function " . strtolower($model) . "()" . "{\n" . "\t\treturn \$this->hasOne(" . $model . "::class);\n" . "\t}\n";
+        return "\tpublic function " . camel_case($model) . "()" . "\n\t{\n" . "\t\treturn \$this->hasOne(" . $model . "::class);\n" . "\t}\n\n";
     }
 
     /**
@@ -199,7 +211,7 @@ class MakeModel
     protected function relationHasMany($model)
     {
         $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
-        return "\tpublic function " . str_plural(strtolower($model)) . "()" . "{\n" . "\t\treturn \$this->hasMany(" . $model . "::class);\n" . "\t}\n";
+        return "\tpublic function " . camel_case(str_plural(snake_case($model))) . "()" . "\n\t{\n" . "\t\treturn \$this->hasMany(" . $model . "::class);\n" . "\t}\n\n";
     }
 
     /**
@@ -211,7 +223,7 @@ class MakeModel
     protected function relationBelongsToMany($model)
     {
         $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
-        return "\tpublic function " . str_plural(strtolower($model)) . "()" . "{\n" . "\t\treturn \$this->belongsToMany(" . $model . "::class);\n" . "\t}\n";
+        return "\tpublic function " . camel_case(str_plural(snake_case($model))) . "()" . "\n\t{\n" . "\t\treturn \$this->belongsToMany(" . $model . "::class);\n" . "\t}\n\n";
     }
 
     /**
@@ -223,6 +235,6 @@ class MakeModel
     protected function relationBelongsTo($model)
     {
         $this->useModels .= "use " . \App::getNamespace() . $model . ";\n";
-        return "\tpublic function " . strtolower($model) . "()" . "{\n" . "\t\treturn \$this->belongsTo(" . $model . "::class);\n" . "\t}\n";
+        return "\tpublic function " . camel_case($model) . "()" . "\n\t{\n" . "\t\treturn \$this->belongsTo(" . $model . "::class);\n" . "\t}\n\n";
     }
 }

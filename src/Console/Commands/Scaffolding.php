@@ -5,6 +5,7 @@ namespace LAIS\Scaffold\Console\Commands;
 use LAIS\Scaffold\Console\Commands\Makes\MakeMigration;
 use LAIS\Scaffold\Console\Commands\Makes\MakeModel;
 use LAIS\Scaffold\Console\Commands\Makes\MakeController;
+use LAIS\Scaffold\Console\Commands\Makes\MakePlurals;
 use LAIS\Scaffold\Console\Commands\Makes\MakeRoute;
 use LAIS\Scaffold\Console\Commands\Makes\MakeView;
 
@@ -98,6 +99,7 @@ class Scaffolding extends Command
         // Start Scaffold
         $this->info('Configurando ' . $this->modelName . '...');
         $this->info('Configurando ' . $this->schema . '...');
+        $this->makePlurals();
         $this->makeMigration();
         $this->makeModel();
         $this->makeController();
@@ -140,6 +142,14 @@ class Scaffolding extends Command
     protected function makeView()
     {
         new MakeView($this, $this->files);
+    }
+
+    /**
+     * Generate config for plurals
+     */
+    public function makePlurals()
+    {
+        new MakePlurals($this, $this->files);
     }
 
     public function getModelName()
