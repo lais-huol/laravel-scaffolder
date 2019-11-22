@@ -37,7 +37,7 @@ Pelo terminal execute os seguintes comandos:
 $ composer require lais/scaffold
 ```
 **Registrando o comando no Laravel**
-Abra o arquivo app/Console/Kernel.php e adicione a seguinte classe no array $commands adicione a seguinte linha
+Abra o arquivo `app/Console/Kernel.php` e adicione a seguinte classe ao array `$commands`:
 ```php
 protected $commands = [
     \LAIS\Scaffold\Console\Commands\Scaffolding::class,
